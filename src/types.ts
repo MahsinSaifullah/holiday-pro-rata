@@ -6,3 +6,5 @@ export interface FormData {
   dataTo?: Dayjs | null;
   workCapacity?: number;
 }
+
+export type ICalculateOption = 'hours' | 'days';

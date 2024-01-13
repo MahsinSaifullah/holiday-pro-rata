@@ -6,14 +6,15 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Dayjs } from 'dayjs';
-import { FormData } from '../types';
+import { FormData, ICalculateOption } from '../types';
 import './form.scss';
 
 interface FormProps {
   onCalculate: (formData: FormData | null) => void;
+  calculateOption: ICalculateOption | null;
 }
 
-export const Form: React.FC<FormProps> = ({ onCalculate }) => {
+export const Form: React.FC<FormProps> = ({ onCalculate, calculateOption }) => {
   const [formData, setFormData] = useState<FormData | null>(null);
 
   const handleOnChange = (
@@ -38,7 +39,7 @@ export const Form: React.FC<FormProps> = ({ onCalculate }) => {
             value={formData?.leavePerAnnum}
             onChange={handleOnChange}
           />
-          <h3>days</h3>
+          <h3>{calculateOption === 'days' ? 'days' : 'hours'}</h3>
         </div>
         <div className="input-container">
           <h3>Dates to calculate:</h3>

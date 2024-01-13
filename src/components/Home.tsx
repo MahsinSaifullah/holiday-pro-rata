@@ -5,7 +5,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Form } from './Form';
 import { Result } from './Result';
 import './home.scss';
-import { FormData } from '../types';
+import { ICalculateOption, FormData } from '../types';
+import { CalculateOption } from './CalculateOption';
 
 const THEME = createTheme({
   typography: {
@@ -29,6 +30,8 @@ const calculateHoliday = (formData: FormData) => {
 
 export const Home = () => {
   const [result, setResult] = useState<number | null>(null);
+  const [calculateOption, setCalculateOptions] =
+    useState<ICalculateOption | null>(null);
 
   const handleOnCalculate = (formData: FormData | null) => {
     if (!formData) {
@@ -42,8 +45,21 @@ export const Home = () => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <main className="home">
           <h1>HOLIDAY PRO-RATA</h1>
-          <Form onCalculate={handleOnCalculate} />
-          {result !== null && <Result result={result} />}
+          {calculateOption ? (
+            <>
+              <Form
+                onCalculate={handleOnCalculate}
+                calculateOption={calculateOption}
+              />
+              {result !== null && (
+                <Result result={result} calculateOption={calculateOption} />
+              )}
+            </>
+          ) : (
+            <CalculateOption
+              onOptionSelect={(option) => setCalculateOptions(option)}
+            />
+          )}
         </main>
       </LocalizationProvider>
     </ThemeProvider>
