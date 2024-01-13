@@ -18,26 +18,14 @@ const THEME = createTheme({
   },
 });
 
-const calculateHoliday = (
-  formData: FormData,
-  calculateOption: ICalculateOption
-) => {
-  const { leavePerAnnum, dataTo, dateFrom, workCapacity, workingHourPerDay } =
-    formData;
-
-  const leaveInDays =
-    calculateOption === 'days'
-      ? leavePerAnnum
-      : (leavePerAnnum || 0) / (workingHourPerDay || 1);
+const calculateHoliday = (formData: FormData) => {
+  const { leavePerAnnum, dataTo, dateFrom, workCapacity } = formData;
 
   const numberOfDays = dataTo?.diff(dateFrom, 'day') || 0;
 
-  const proRataLeaveInDays =
-    (numberOfDays / 365) * (leaveInDays || 0) * ((workCapacity || 0) / 100);
-
-  return calculateOption === 'days'
-    ? proRataLeaveInDays
-    : proRataLeaveInDays * (workingHourPerDay || 0);
+  return (
+    (numberOfDays / 12) * (leavePerAnnum || 0) * ((workCapacity || 0) / 100)
+  );
 };
 
 export const Home = () => {
@@ -49,7 +37,7 @@ export const Home = () => {
     if (!formData || !calculateOption) {
       return;
     }
-    setResult(calculateHoliday(formData, calculateOption));
+    setResult(calculateHoliday(formData));
   };
 
   return (
