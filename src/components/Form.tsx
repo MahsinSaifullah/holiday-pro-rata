@@ -41,6 +41,18 @@ export const Form: React.FC<FormProps> = ({ onCalculate, calculateOption }) => {
           />
           <h3>{calculateOption === 'days' ? 'days' : 'hours'}</h3>
         </div>
+        {calculateOption === 'hours' && (
+          <div className="input-container">
+            <h3>Fulltime working hours per day:</h3>
+            <TextField
+              name="workingHourPerDay"
+              type="number"
+              value={formData?.workingHourPerDay}
+              onChange={handleOnChange}
+            />
+            <h3>hours</h3>
+          </div>
+        )}
         <div className="input-container">
           <h3>Dates to calculate:</h3>
           <DatePicker
