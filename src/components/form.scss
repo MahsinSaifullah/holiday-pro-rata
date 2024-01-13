@@ -24,3 +24,9 @@
 .MuiButton-contained {
   max-width: 50%;
 }
+
+.form-action {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

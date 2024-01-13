@@ -19,9 +19,9 @@ const THEME = createTheme({
 });
 
 const calculateHoliday = (formData: FormData) => {
-  const { leavePerAnnum, dataTo, dateFrom, workCapacity } = formData;
+  const { leavePerAnnum, dateTo, dateFrom, workCapacity } = formData;
 
-  const numberOfDays = dataTo?.diff(dateFrom, 'day') || 0;
+  const numberOfDays = dateTo?.diff(dateFrom, 'day') || 0;
 
   return (
     (numberOfDays / 12) * (leavePerAnnum || 0) * ((workCapacity || 0) / 100)
@@ -40,6 +40,11 @@ export const Home = () => {
     setResult(calculateHoliday(formData));
   };
 
+  const handleOnToggleCalcuteOption = () => {
+    setResult(null);
+    setCalculateOptions((option) => (option === 'days' ? 'hours' : 'days'));
+  };
+
   return (
     <ThemeProvider theme={THEME}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -49,6 +54,7 @@ export const Home = () => {
             <>
               <Form
                 onCalculate={handleOnCalculate}
+                onToggleCalculateOption={handleOnToggleCalcuteOption}
                 calculateOption={calculateOption}
               />
               {result !== null && (

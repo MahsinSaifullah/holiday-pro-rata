@@ -12,9 +12,14 @@ import './form.scss';
 interface FormProps {
   onCalculate: (formData: FormData | null) => void;
   calculateOption: ICalculateOption | null;
+  onToggleCalculateOption: () => void;
 }
 
-export const Form: React.FC<FormProps> = ({ onCalculate, calculateOption }) => {
+export const Form: React.FC<FormProps> = ({
+  onCalculate,
+  calculateOption,
+  onToggleCalculateOption,
+}) => {
   const [formData, setFormData] = useState<FormData | null>(null);
 
   const handleOnChange = (
@@ -57,7 +62,7 @@ export const Form: React.FC<FormProps> = ({ onCalculate, calculateOption }) => {
             onChange={(value: Dayjs | null) => {
               setFormData({
                 ...formData,
-                dataTo: value,
+                dateTo: value,
               });
             }}
           />
@@ -67,13 +72,14 @@ export const Form: React.FC<FormProps> = ({ onCalculate, calculateOption }) => {
           <TextField
             name="workCapacity"
             type="number"
+            value={formData?.workCapacity}
             error={!!formData?.workCapacity && formData.workCapacity > 100}
             onChange={handleOnChange}
           />
           <h3>%</h3>
         </div>
       </CardContent>
-      <CardActions>
+      <CardActions className="form-action">
         <Button
           style={{ backgroundColor: '#ff6a13', fontWeight: 'bold' }}
           fullWidth
@@ -81,6 +87,25 @@ export const Form: React.FC<FormProps> = ({ onCalculate, calculateOption }) => {
           onClick={() => onCalculate(formData)}
         >
           Calculate
+        </Button>
+        <Button
+          style={{
+            color: 'black',
+            fontWeight: 'lighter',
+            opacity: 0.7,
+          }}
+          variant="text"
+          onClick={() => {
+            setFormData({
+              leavePerAnnum: 0,
+              dateTo: null,
+              dateFrom: null,
+              workCapacity: 0,
+            });
+            onToggleCalculateOption();
+          }}
+        >
+          or calulate with {calculateOption === 'days' ? 'hours' : 'days'} ?
         </Button>
       </CardActions>
     </Card>

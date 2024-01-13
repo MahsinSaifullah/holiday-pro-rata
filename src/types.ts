@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs';
 export interface FormData {
   leavePerAnnum?: number;
   dateFrom?: Dayjs | null;
-  dataTo?: Dayjs | null;
+  dateTo?: Dayjs | null;
   workCapacity?: number;
   workingHourPerDay?: number;
 }
