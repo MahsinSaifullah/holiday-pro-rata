@@ -1,4 +1,6 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Form } from './Form';
 import './home.scss';
 
@@ -15,10 +17,12 @@ const THEME = createTheme({
 export const Home = () => {
   return (
     <ThemeProvider theme={THEME}>
-      <main className="home">
-        <h1>HOLIDAY PRO-RATA</h1>
-        <Form />
-      </main>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <main className="home">
+          <h1>HOLIDAY PRO-RATA</h1>
+          <Form />
+        </main>
+      </LocalizationProvider>
     </ThemeProvider>
   );
 };
