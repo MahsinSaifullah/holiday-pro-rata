@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
@@ -6,16 +6,14 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Dayjs } from 'dayjs';
+import { FormData } from '../types';
 import './form.scss';
 
-interface FormData {
-  leavePerAnnum?: number;
-  dateFrom?: Dayjs | null;
-  dataTo?: Dayjs | null;
-  workCapacity?: number;
+interface FormProps {
+  onCalculate: (formData: FormData | null) => void;
 }
 
-export const Form = () => {
+export const Form: React.FC<FormProps> = ({ onCalculate }) => {
   const [formData, setFormData] = useState<FormData | null>(null);
 
   const handleOnChange = (
@@ -79,6 +77,7 @@ export const Form = () => {
           style={{ backgroundColor: '#ff6a13', fontWeight: 'bold' }}
           fullWidth
           variant="contained"
+          onClick={() => onCalculate(formData)}
         >
           Calculate
         </Button>
