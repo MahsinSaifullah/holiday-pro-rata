@@ -1,6 +1,8 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import './form.scss';
@@ -25,6 +27,15 @@ export const Form = () => {
           <h3>%</h3>
         </div>
       </CardContent>
+      <CardActions>
+        <Button
+          style={{ backgroundColor: '#ff6a13', fontWeight: 'bold' }}
+          fullWidth
+          variant="contained"
+        >
+          Calculate
+        </Button>
+      </CardActions>
     </Card>
   );
 };
