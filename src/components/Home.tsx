@@ -24,7 +24,7 @@ const calculateHoliday = (formData: FormData) => {
   const numberOfDays = dateTo?.diff(dateFrom, 'day') || 0;
 
   return (
-    (numberOfDays / 12) * (leavePerAnnum || 0) * ((workCapacity || 0) / 100)
+    (numberOfDays / 365) * (leavePerAnnum || 0) * ((workCapacity || 0) / 100)
   );
 };
 
